@@ -1,1 +1,1 @@
-# BombaGIS
+# WebGIS amatoriale del Comune di BombaGIS
