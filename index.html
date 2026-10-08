@@ -198,7 +198,7 @@
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
 // Caricamento del GeoJSON (file unico usato per due layer diversi)
-    fetch('ra_limiti_amministrativi.geojson')
+    fetch('data/ra_limiti_amministrativi.geojson')
       .then(response => {
         if (!response.ok) throw new Error('Errore HTTP ' + response.status);
         return response.json();
