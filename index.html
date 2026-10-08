@@ -209,7 +209,7 @@
         const confineBomba = L.geoJSON(geojsonData, {
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
-            return nome && nome.toString().trim().toLowerCase() === 'Bomba';
+            return nome && nome.toString().trim().toLowerCase() === 'bomba';
           },
           style: {
             color: '#000000',
@@ -229,7 +229,7 @@
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
             // Il simbolo !== significa "DIVERSO DA"
-            return nome && nome.toString().trim().toLowerCase() !== 'Bomba';
+            return nome && nome.toString().trim().toLowerCase() !== 'bomba';
           },
           style: {
             color: '#666666',   // Bordo grigio
