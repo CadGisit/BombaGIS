@@ -26,6 +26,8 @@
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Plugin Leaflet.Pattern per i riempimenti a tratteggio -->
+  <script src="https://unpkg.com/leaflet.pattern/dist/leaflet.pattern.js"></script>
 
   <script>
     // Centro mappa su Bomba (viene eseguito subito, poi sovrascritto dal fitBounds)
@@ -36,130 +38,124 @@
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    
-    // BASE 2: OpenTopoMap
-    const opentopomap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://opentopomap.org/about#verwendung">OpenTopoMap</a>'
-    });
-    
-    // BASE 3: Esri Satellite
+
+    // BASE 2: Esri Satellite
     const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 19,
       attribution: 'Tiles &copy; Esri'
     });
 
-    // BASE 4: Ortofoto AGEA 2022 (WMS)
+    // BASE 3: Ortofoto AGEA 2022 (WMS)
     const ortofoto_agea_2022 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Ortofoto_2022_AGEA_RGB.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_Ortofoto_2022_AGEA_RGB.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 2022'
     });
     
-    // BASE 5: Ortofoto Regione Abruzzo 2018-2019 (WMS)
+    // BASE 4: Ortofoto Regione Abruzzo 2018-2019 (WMS)
     const ortofoto_regione_abruzzo_2018_2019 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_2018_2019_Regione_Abruzzo.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_2018_2019_Regione_Abruzzo.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; Regione Abruzzo 2018-2019'
     });
 
-    // BASE 6: Ortofoto AGEA 2019 (WMS)
+    // BASE 5: Ortofoto AGEA 2019 (WMS)
     const ortofoto_agea_2019 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Ortofoto_2019_AGEA_RGB.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_Ortofoto_2019_AGEA_RGB.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 2019'
     });
 
-    // BASE 7: Ortofoto AGEA 2016 (WMS)
+    // BASE 6: Ortofoto AGEA 2016 (WMS)
     const ortofoto_agea_2016 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_.', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_.',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 2016'
     });
     
-    // BASE 8: Ortofoto AGEA 2013 (WMS)
+    // BASE 7: Ortofoto AGEA 2013 (WMS)
     const ortofoto_agea_2013 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Ortofoto2013.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_Ortofoto2013.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 2013'
     });
 
-    // BASE 9: Ortofoto AGEA 2010 (WMS)
+    // BASE 8: Ortofoto AGEA 2010 (WMS)
     const ortofoto_agea_2010 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_italia_centrale.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_italia_centrale.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 2010'
     });
 
-    // BASE 10: Ortofoto AGEA 2009 (WMS)
+    // BASE 9: Ortofoto AGEA 2009 (WMS)
     const ortofoto_agea_2009 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Orto2009_AGEA.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_Orto2009_AGEA.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 2009'
     });
 
-    // BASE 11: Ortofoto Regione Abruzzo 2001 (WMS)
+    // BASE 10: Ortofoto Regione Abruzzo 2001 (WMS)
     const ortofoto_regione_abruzzo_2001 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_2001_RA.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_2001_RA.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; Regione Abruzzo 2001'
     });
 
-    // BASE 12: Ortofoto Regione Abruzzo 2000 (WMS)
+    // BASE 11: Ortofoto Regione Abruzzo 2000 (WMS)
     const ortofoto_regione_abruzzo_2000 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_2000_CGR.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_2000_CGR.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; Regione Abruzzo 2000'
     });
 
-    // BASE 13: Ortofoto AGEA 2009 (WMS)
+    // BASE 12: Ortofoto AGEA 1997 (WMS)
     const ortofoto_agea_1997 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_1997_AGEA.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_1997_AGEA.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; AGEA 1997'
     });
 
-    // BASE 14: Ortofoto Regione Abruzzo 1982-1986 (WMS)
+    // BASE 13: Ortofoto Regione Abruzzo 1982-1986 (WMS)
     const ortofoto_regione_abruzzo_1982_1986 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_RA_82-86.ecw', // Layer ortofoto regionale ad alta risoluzione
+      layers: 'Mosaici_UTM-WGS84_RA_82-86.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'Ortofoto &copy; Regione Abruzzo 1982-1986'
     });
     
-    // BASE 15: CTR 10k 2007 Regione Abruzzo (WMS)
-      const ctr_10k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_CTR_10K_2007.ecw', // Layer CTR 10k 2007
+    // BASE 14: CTR 10k 2007 Regione Abruzzo (WMS)
+    const ctr_10k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
+      layers: 'Mosaici_UTM-WGS84_CTR_10K_2007.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
       attribution: 'CTR 10k &copy; Regione Abruzzo 2007'
     });
   
-    // BASE 16: CTR 5k 2007 Regione Abruzzo (WMS)
-      const ctr_5k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_CTR_5K_2007.ecw', // Layer CTR 5k 2007
+    // BASE 15: CTR 5k 2007 Regione Abruzzo (WMS)
+    const ctr_5k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
+      layers: 'Mosaici_UTM-WGS84_CTR_5K_2007.ecw',
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -179,8 +175,7 @@
 
     // Controllo Layer
     const baseMaps = {
-      "OpenStreetMap": osm,
-      "OpenTopoMap": opentopomap,
+      "Stradale (OpenStreetMap)": osm,
       "Satellite (Esri)": satellite,
       "Ortofoto AGEA (2022)": ortofoto_agea_2022,
       "Ortofoto Regione Abruzzo (2018-2019)": ortofoto_regione_abruzzo_2018_2019,
@@ -204,7 +199,9 @@
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
-// Caricamento del GeoJSON (file unico usato per due layer diversi)
+    // ==========================================
+    // 1. CARICAMENTO CONFINI AMMINISTRATIVI
+    // ==========================================
     fetch('data/ra_limiti_amministrativi.geojson')
       .then(response => {
         if (!response.ok) throw new Error('Errore HTTP ' + response.status);
@@ -212,7 +209,7 @@
       })
       .then(geojsonData => {
         
-        // --- LAYER 1: COMUNE DI BOMBA (Attivo di default) ---
+        // COMUNE DI BOMBA (Attivo)
         const confineBomba = L.geoJSON(geojsonData, {
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
@@ -224,35 +221,67 @@
             opacity: 1.0,
             fill: false
           }
-        }).addTo(map); // <-- Ha .addTo(map), parte acceso
+        }).addTo(map);
 
-        // Centra la mappa su Bomba
         if (confineBomba.getLayers().length > 0) {
           map.fitBounds(confineBomba.getBounds());
         }
 
-        // --- LAYER 2: ALTRI COMUNI (Spento di default) ---
+        // ALTRI COMUNI (Spento)
         const comuniConfinanti = L.geoJSON(geojsonData, {
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
-            // Il simbolo !== significa "DIVERSO DA"
             return nome && nome.toString().trim().toLowerCase() !== 'bomba';
           },
           style: {
-            color: '#666666',   // Bordo grigio
-            weight: 1,          // Più sottile del confine di Bomba
+            color: '#666666',   
+            weight: 1,          
             opacity: 0.8,
             fillColor: '#000000',
-            fillOpacity: 0.05   // Leggerissima velatura grigia interna
+            fillOpacity: 0.05   
           }
-        }); // <-- NON ha .addTo(map), quindi parte spento
+        }); 
 
-        // --- AGGIUNTA DEI LAYER AL MENU IN ALTO A DESTRA ---
         layerControl.addOverlay(confineBomba, "Confine Comune di Bomba");
         layerControl.addOverlay(comuniConfinanti, "Comuni confinanti");
-
       })
-      .catch(err => console.error("Errore caricamento GeoJSON:", err));
+      .catch(err => console.error("Errore caricamento GeoJSON Confini:", err));
+
+    // ==========================================
+    // 2. CARICAMENTO VINCOLO IDROGEOLOGICO
+    // ==========================================
+    
+    // Creazione del tratteggio (Pattern)
+    const vincoloPattern = new L.StripePattern({
+      color: '#0cf054', // Il tuo verde
+      weight: 2,        // Spessore della linea
+      spaceWeight: 4,   // Spazio vuoto tra le linee
+      angle: 45,        // Inclinazione in gradi
+      opacity: 0.9      // Opacità delle linee
+    });
+    vincoloPattern.addTo(map); // Necessario per registrare il pattern sulla mappa
+
+    fetch('data/ra_vincolo_idrogeologico.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error('Errore HTTP ' + response.status);
+        return response.json();
+      })
+      .then(geojsonData => {
+        
+        const layerVincolo = L.geoJSON(geojsonData, {
+          style: {
+            color: '#0cf054',            // Bordo esterno del poligono
+            weight: 1.5,                 // Spessore del bordo
+            fillPattern: vincoloPattern, // Applica il tratteggio creato prima
+            fillOpacity: 1.0             // Deve essere 1, l'opacità la gestisce il pattern
+          }
+        }); 
+
+        // Lo aggiungiamo al menu, ma non usiamo .addTo(map) così parte disattivato
+        layerControl.addOverlay(layerVincolo, "Vincolo Idrogeologico");
+      })
+      .catch(err => console.error("Errore caricamento GeoJSON Vincolo:", err));
+
   </script>
 </body>
 </html>
