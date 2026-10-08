@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TeateGis - WebGIS Chieti</title>
+  <title>BombaGIS - WebGIS amatoriale del Comune di Bomba</title>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -28,8 +28,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // Centro mappa su Chieti (viene eseguito subito, poi sovrascritto dal fitBounds)
-    const map = L.map('map').setView([42.3510, 14.1675], 14);
+    // Centro mappa su Bomba (viene eseguito subito, poi sovrascritto dal fitBounds)
+    const map = L.map('map').setView([42.0360, 14.3640], 14);
 
     // BASE 1: OpenStreetMap
     const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -205,11 +205,11 @@
       })
       .then(geojsonData => {
         
-        // --- LAYER 1: COMUNE DI CHIETI (Attivo di default) ---
-        const confineChieti = L.geoJSON(geojsonData, {
+        // --- LAYER 1: COMUNE DI BOMBA (Attivo di default) ---
+        const confineBomba = L.geoJSON(geojsonData, {
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
-            return nome && nome.toString().trim().toLowerCase() === 'chieti';
+            return nome && nome.toString().trim().toLowerCase() === 'Bomba';
           },
           style: {
             color: '#000000',
@@ -219,9 +219,9 @@
           }
         }).addTo(map); // <-- Ha .addTo(map), parte acceso
 
-        // Centra la mappa su Chieti
-        if (confineChieti.getLayers().length > 0) {
-          map.fitBounds(confineChieti.getBounds());
+        // Centra la mappa su Bomba
+        if (confineBomba.getLayers().length > 0) {
+          map.fitBounds(confineBomba.getBounds());
         }
 
         // --- LAYER 2: ALTRI COMUNI (Spento di default) ---
@@ -229,11 +229,11 @@
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
             // Il simbolo !== significa "DIVERSO DA"
-            return nome && nome.toString().trim().toLowerCase() !== 'chieti';
+            return nome && nome.toString().trim().toLowerCase() !== 'Bomba';
           },
           style: {
             color: '#666666',   // Bordo grigio
-            weight: 1,          // Più sottile del confine di Chieti
+            weight: 1,          // Più sottile del confine di Bomba
             opacity: 0.8,
             fillColor: '#000000',
             fillOpacity: 0.05   // Leggerissima velatura grigia interna
@@ -241,7 +241,7 @@
         }); // <-- NON ha .addTo(map), quindi parte spento
 
         // --- AGGIUNTA DEI LAYER AL MENU IN ALTO A DESTRA ---
-        layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
+        layerControl.addOverlay(confineBomba, "Confine Comune di Bomba");
         layerControl.addOverlay(comuniConfinanti, "Comuni confinanti");
 
       })
