@@ -200,7 +200,7 @@
     };
 
     const overlayMaps = {
-      "Catasto Particelle (WMS AdE)": wmsCatasto
+      "Catasto AdE (WMS Esterno)": wmsCatasto
     };
 
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
@@ -288,6 +288,52 @@
         layerControl.addOverlay(layerVincolo, "Vincolo Idrogeologico");
       })
       .catch(err => console.error("Errore caricamento GeoJSON Vincolo:", err));
+
+    // ==========================================
+    // 3. CARICAMENTO MAPPE CATASTALI (Fogli)
+    // ==========================================
+    fetch('data/ade_catasto_mappe.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error('Errore HTTP ' + response.status);
+        return response.json();
+      })
+      .then(geojsonData => {
+        
+        const layerMappe = L.geoJSON(geojsonData, {
+          style: {
+            color: '#e31a1c',   // Bordo rosso
+            weight: 2,          // Linea marcata
+            fill: false,        // Nessun riempimento per vedere sotto
+            opacity: 1.0
+          }
+        }); 
+
+        layerControl.addOverlay(layerMappe, "Mappe Catastali (Fogli AdE)");
+      })
+      .catch(err => console.error("Errore caricamento GeoJSON Mappe:", err));
+
+    // ==========================================
+    // 4. CARICAMENTO PARTICELLE CATASTALI
+    // ==========================================
+    fetch('data/ade_catasto_particelle.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error('Errore HTTP ' + response.status);
+        return response.json();
+      })
+      .then(geojsonData => {
+        
+        const layerParticelle = L.geoJSON(geojsonData, {
+          style: {
+            color: '#ff7f00',   // Bordo arancione
+            weight: 1,          // Linea sottile per le particelle
+            fill: false,        // Nessun riempimento
+            opacity: 0.8
+          }
+        }); 
+
+        layerControl.addOverlay(layerParticelle, "Particelle Catastali (AdE)");
+      })
+      .catch(err => console.error("Errore caricamento GeoJSON Particelle:", err));
 
   </script>
 </body>
