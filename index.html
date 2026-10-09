@@ -300,7 +300,7 @@
       })
       .then(geojsonData => {
         
-        const layerMappe = L.geoJSON(geojsonData, {
+        const layerCatastoMappe = L.geoJSON(geojsonData, {
           style: {
             color: '#e31a1c',   // Bordo rosso
             weight: 2,          // Linea marcata
@@ -309,9 +309,9 @@
           }
         }); 
 
-        layerControl.addOverlay(layerMappe, "Mappe Catastali (Fogli AdE)");
+        layerControl.addOverlay(layerCatastoMappe, "Fogli Catastali (AdE)");
       })
-      .catch(err => console.error("Errore caricamento GeoJSON Mappe:", err));
+      .catch(err => console.error("Errore caricamento GeoJSON Fogli Catastali:", err));
 
     // ==========================================
     // 4. CARICAMENTO PARTICELLE CATASTALI
@@ -323,7 +323,7 @@
       })
       .then(geojsonData => {
         
-        const layerParticelle = L.geoJSON(geojsonData, {
+        const layerCatastoParticelle = L.geoJSON(geojsonData, {
           style: {
             color: '#ff7f00',   // Bordo arancione
             weight: 1,          // Linea sottile per le particelle
@@ -332,7 +332,7 @@
           }
         }); 
 
-        layerControl.addOverlay(layerParticelle, "Particelle Catastali (AdE)");
+        layerControl.addOverlay(layerCatastoParticelle, "Particelle Catastali (AdE)");
       })
       .catch(err => console.error("Errore caricamento GeoJSON Particelle:", err));
 
