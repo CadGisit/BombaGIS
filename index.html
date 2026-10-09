@@ -168,30 +168,22 @@
       attribution: 'CTR 5k &copy; Regione Abruzzo 2007'
     });
   
-    // OVERLAY 1: WMS Catasto AdE - FOGLI (Si vedono da lontano)
+    // OVERLAY 1: WMS Catasto AdE - FOGLI
     const wmsCatastoFogli = L.tileLayer.wms('https://wms.cartografia.agenziaentrate.gov.it/inspire/wms/ows01.php', {
       layers: 'CP.CadastralZoning',
       format: 'image/png',
       transparent: true,
       version: '1.3.0',
-      crs: L.CRS.EPSG4326,    // Lingua corretta per il Catasto
-      uppercase: true,        // OBBLIGATORIO per i server dell'AdE
-      minZoom: 12,            // I fogli si vedono anche da lontano
-      maxZoom: 21,
-      attribution: 'Cartografia Catastale © Agenzia delle Entrate'
+      styles: ''  // <-- Molto importante per l'AdE
     });
 
-    // OVERLAY 2: WMS Catasto AdE - PARTICELLE (Si vedono SOLO da molto vicino)
+    // OVERLAY 2: WMS Catasto AdE - PARTICELLE
     const wmsCatastoParticelle = L.tileLayer.wms('https://wms.cartografia.agenziaentrate.gov.it/inspire/wms/ows01.php', {
       layers: 'CP.CadastralParcel',
       format: 'image/png',
       transparent: true,
       version: '1.3.0',
-      crs: L.CRS.EPSG4326,    // Lingua corretta per il Catasto
-      uppercase: true,        // OBBLIGATORIO per i server dell'AdE
-      minZoom: 17,            // ATTENZIONE: le particelle appaiono solo da zoom 17 in poi!
-      maxZoom: 21,
-      attribution: 'Cartografia Catastale © Agenzia delle Entrate'
+      styles: ''  // <-- Molto importante per l'AdE
     });
 
     // Controllo Layer
