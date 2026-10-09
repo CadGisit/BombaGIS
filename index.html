@@ -173,8 +173,9 @@
       layers: 'CP.CadastralZoning',
       format: 'image/png',
       transparent: true,
-      version: '1.1.1',
-      styles: ''  // <-- Molto importante per l'AdE
+      version: '1.1.1',         // Versione stabile anti-inversione
+      crs: L.CRS.EPSG4326,      // Lingua geografica pretesa dal Catasto
+      styles: ''
     });
 
     // OVERLAY 2: WMS Catasto AdE - PARTICELLE
@@ -182,8 +183,9 @@
       layers: 'CP.CadastralParcel',
       format: 'image/png',
       transparent: true,
-      version: '1.1.1',
-      styles: ''  // <-- Molto importante per l'AdE
+      version: '1.1.1',         // Versione stabile anti-inversione
+      crs: L.CRS.EPSG4326,      // Lingua geografica pretesa dal Catasto
+      styles: ''
     });
 
     // Controllo Layer
