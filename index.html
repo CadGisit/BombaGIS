@@ -189,11 +189,11 @@
     });
 
     // OVERLAY 3: Mappa Storica del Regno di Napoli (XYZ)
-    const xyzRegnodiNapoli = L.tileLayer('https://wmts.oldmapsonline.org/maps/3360a640-fbd7-5543-bfdd-bb4ba3be9ad9/2024-12-18T19:52:20.036Z/{z}/{x}/{y}.png?key=mwGjpOOdA6mpjAUvKB5m', {
-      maxZoom: 19,
-      opacity: 0.7, // 0.7 significa 70% visibile e 30% trasparente. Modificalo da 0.0 a 1.0!
-      attribution: 'Cartografia Storica &copy; David Rumsey Historical Map Collection - Created by Giovanni Antonio Rizzi Zannoni and published by Giuseppe Guerra in 1808'
-    });
+    //const xyzRegnodiNapoli = L.tileLayer('https://wmts.oldmapsonline.org/maps/3360a640-fbd7-5543-bfdd-bb4ba3be9ad9/2024-12-18T19:52:20.036Z/{z}/{x}/{y}.png?key=mwGjpOOdA6mpjAUvKB5m', {
+    //  maxZoom: 19,
+    //  opacity: 0.7, // 0.7 significa 70% visibile e 30% trasparente. Modificalo da 0.0 a 1.0!
+    //  attribution: 'Cartografia Storica &copy; David Rumsey Historical Map Collection - Created by Giovanni Antonio Rizzi Zannoni and published by Giuseppe Guerra in 1808'
+    //});
 
     // Controllo Layer
     const baseMaps = {
@@ -216,9 +216,9 @@
     };
 
     const overlayMaps = {
-      "Catasto Fogli (WMS AdE)": wmsCatastoFogli,
-      "Catasto Particelle (WMS AdE)": wmsCatastoParticelle,
-      "Regno di Napoli 1808": xyzRegnodiNapoli
+      //"Catasto Fogli (WMS AdE)": wmsCatastoFogli,
+      //"Catasto Particelle (WMS AdE)": wmsCatastoParticelle,
+      //"Regno di Napoli 1808": xyzRegnodiNapoli
       
     };
 
