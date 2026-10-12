@@ -44,6 +44,12 @@
       maxZoom: 19,
       attribution: '&copy; <a href="https://opentopomap.org/about#verwendung">OpenTopoMap</a>'
     });
+
+    // BASE 3: Freemap
+    const freemap = L.tileLayer('https://outdoor.tiles.freemap.sk/{z}/{x}/{y}@2x', {
+      maxZoom: 19,
+      attribution: '&copy; Freemap'
+    });
     
     // BASE 3: Esri Satellite
     const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -199,6 +205,7 @@
     const baseMaps = {
       "OpenStreetMap": osm,
       "OpenTopoMap": opentopomap,
+      "Freemap": freemap,
       "Satellite (Esri)": satellite,
       "Ortofoto AGEA (2022)": ortofoto_agea_2022,
       "Ortofoto Regione Abruzzo (2018-2019)": ortofoto_regione_abruzzo_2018_2019,
