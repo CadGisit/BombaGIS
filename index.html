@@ -316,7 +316,56 @@ o<!DOCTYPE html>
       .catch(err => console.error("Errore caricamento GeoJSON Vincolo:", err));
 
     // ==========================================
-    // 3. CARICAMENTO MAPPE CATASTALI (Fogli)
+    // 3. CARICAMENTO NATURA 2000 (EIONET)
+    // ==========================================
+    
+    // Creazione del tratteggio (Pattern) per Natura 2000
+    const natura2000Pattern = new L.StripePattern({
+      color: '#9eff01', // Verde chiaro (linee inclinate)
+      weight: 2,        // Spessore della linea
+      spaceWeight: 4,   // Spazio vuoto tra le linee
+      angle: 45,        // Inclinazione in gradi
+      opacity: 0.9      // Opacità delle linee stesse
+    });
+    natura2000Pattern.addTo(map);
+
+    fetch('data/eionet_natura_2000.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error('Errore HTTP ' + response.status);
+        return response.json();
+      })
+      .then(geojsonData => {
+        
+        // Livello 1: Sfondo solido scuro con opacità 40%
+        const sfondoNatura2000 = L.geoJSON(geojsonData, {
+          style: {
+            color: '#598c00',       // Colore del bordo (lo stesso del riempimento)
+            weight: 1.5,            // Spessore del bordo
+            fillColor: '#598c00',   // Riempimento solido
+            fillOpacity: 0.4        // Trasparenza complessiva del riempimento solido al 40%
+          }
+        });
+
+        // Livello 2: Tratteggio chiaro in sovrimpressione
+        const tratteggioNatura2000 = L.geoJSON(geojsonData, {
+          style: {
+            color: 'transparent',           // Bordo nascosto (usiamo quello del Livello 1)
+            weight: 0,
+            fillPattern: natura2000Pattern, // Applica il pattern a righe
+            fillOpacity: 1.0                // L'opacità del pattern è gestita nel pattern stesso
+          }
+        });
+
+        // Uniamo i due livelli in un unico "Layer Group"
+        const layerNatura2000 = L.layerGroup([sfondoNatura2000, tratteggioNatura2000]);
+
+        // Aggiungiamo il gruppo al menu (apparirà come una singola voce)
+        layerControl.addOverlay(layerNatura2000, "Vincolo Rete Natura 2000 (EIONET)");
+      })
+      .catch(err => console.error("Errore caricamento GeoJSON Natura 2000:", err));
+    
+    // ==========================================
+    // 4. CARICAMENTO MAPPE CATASTALI (Fogli)
     // ==========================================
     fetch('data/ade_catasto_mappe.geojson')
       .then(response => {
@@ -339,7 +388,7 @@ o<!DOCTYPE html>
       .catch(err => console.error("Errore caricamento GeoJSON Fogli Catastali:", err));
 
     // ==========================================
-    // 4. CARICAMENTO PARTICELLE CATASTALI
+    // 5. CARICAMENTO PARTICELLE CATASTALI
     // ==========================================
     fetch('data/ade_catasto_particelle.geojson')
       .then(response => {
